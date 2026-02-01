@@ -19,9 +19,10 @@ python main.py
 
 ## Project Goals
 
-- This project is built to strengthen understanding of:
+This project is built to strengthen understanding of:
 - Python dictionaries and data structures
 - Functions and code organization
 - Loops and conditional logic
 - User input validation
 - Building real CLI applications
+
