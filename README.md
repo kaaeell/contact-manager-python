@@ -40,7 +40,7 @@ python main.py
 - Contacts are stored in a Python dictionary while the program is running.  
 - Whenever you add, update, delete, or clear contacts, the program saves the changes to `contacts.json`.  
 - When you start the program, it automatically loads the contacts from the JSON file.  
-- Searching is case-insensitive, so “Yaser” and “yaser” will be treated the same.
+- Searching is case-insensitive, so “Kael” and “kael” will be treated the same.
 
 ---
 
@@ -48,5 +48,6 @@ python main.py
 
 This project was made by **Yaser (Kael)** as a Python learning project.  
 It’s simple, easy to understand, and a good example of a small, real-world CLI application.
+
 
 
