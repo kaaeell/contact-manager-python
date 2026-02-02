@@ -1,7 +1,20 @@
+import json
+file_name = "contacts.json"
 print("CONTACT MANAGEMENT SYSTEM")
 
-contacts = {}
 
+def l_c(): #l_c means load contacts
+    try:
+        with open(file_name, "r") as file:
+            return json.load(file)
+    except FileNotFoundError:
+        return{}
+
+def save_contacts():
+    with open(file_name, "w") as file:
+        json.dump(contacts, file, indent=4)
+
+contacts = l_c()
 
 def show_menu():
     print("\nMenu:")
@@ -10,7 +23,8 @@ def show_menu():
     print("3. Search contact")
     print("4. Update contact")
     print("5. Delete contact")
-    print("6. Exit")
+    print("6. Clear all contacts")
+    print("7. Exit")
 
 
 def add_contact():
@@ -29,6 +43,7 @@ def add_contact():
     }
 
     print("Contact added successfully.")
+    save_contacts()
 
 
 def view_contacts():
@@ -56,7 +71,6 @@ def search_contact():
     else:
         print("Contact not found.")
 
-
 def update_contact():
     name = input("Enter contact name to update: ").strip().lower()
 
@@ -71,6 +85,7 @@ def update_contact():
     contacts[name]["email"] = email
 
     print("Contact updated successfully.")
+    save_contacts()
 
 
 def delete_contact():
@@ -78,14 +93,23 @@ def delete_contact():
 
     if name in contacts:
         del contacts[name]
+        save_contacts()  #Save after deleting
         print("Contact deleted successfully.")
     else:
         print("Contact not found.")
 
 
+def clear_everything():
+    global contacts
+    contacts = {}
+    save_contacts()
+    print("All contacts cleared.")
+
+
+
 while True:
     show_menu()
-    choice = input("Choose an option (1-6): ").strip()
+    choice = input("Choose an option (1-7): ").strip()
 
     if choice == "1":
         add_contact()
@@ -98,6 +122,8 @@ while True:
     elif choice == "5":
         delete_contact()
     elif choice == "6":
+        clear_everything()
+    elif choice == "7":
         print("Goodbye!")
         break
     else:
