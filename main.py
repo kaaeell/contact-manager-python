@@ -14,7 +14,7 @@ def save_contacts():
     with open(file_name, "w") as file:
         json.dump(contacts, file, indent=4)
 
-contacts = l_c()
+contacts = l_c() #Load contacts
 
 def show_menu():
     print("\nMenu:")
@@ -29,6 +29,9 @@ def show_menu():
 
 def add_contact():
     name = input("Enter contact name: ").strip().lower()
+    if not name:
+        print("name cannot be empty")
+        return
 
     if name in contacts:
         print("Contact already exists.")
@@ -87,16 +90,20 @@ def update_contact():
     print("Contact updated successfully.")
     save_contacts()
 
-
 def delete_contact():
     name = input("Enter contact name to delete: ").strip().lower()
-
-    if name in contacts:
-        del contacts[name]
-        save_contacts()  #Save after deleting
-        print("Contact deleted successfully.")
-    else:
+    if name not in contacts:
         print("Contact not found.")
+        return
+    delete_confirmation = input("Are you sure you want to delete this contact? (y/n): ").strip().lower()
+
+    if delete_confirmation != "y":
+        print("Delete cancelled.")
+        return
+    del contacts[name]
+    save_contacts()
+    print("Contact deleted successfully.")
+
 
 
 def clear_everything():
