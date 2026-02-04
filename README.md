@@ -47,12 +47,14 @@ python main.py
 ## Notes
 - Basic input validation is included (empty names are not allowed).
 - Contacts are stored locally in a JSON file.
+- Avoid saving duplicate phone numbers.
 
 
 ## About
 
 This project was made by **Yaser (Kael)** as a Python learning project.  
 It’s simple, easy to understand, and a good example of a small, real-world CLI application.
+
 
 
 
