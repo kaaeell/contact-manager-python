@@ -1,20 +1,24 @@
 import json
+
 file_name = "contacts.json"
 print("CONTACT MANAGEMENT SYSTEM")
 
 
-def l_c(): #l_c means load contacts
+def l_c():  # load contacts
     try:
         with open(file_name, "r") as file:
             return json.load(file)
     except FileNotFoundError:
-        return{}
+        return {}
+
 
 def save_contacts():
     with open(file_name, "w") as file:
         json.dump(contacts, file, indent=4)
 
-contacts = l_c() #Load contacts
+
+contacts = l_c()  # Load contacts
+
 
 def show_menu():
     print("\nMenu:")
@@ -27,17 +31,33 @@ def show_menu():
     print("7. Exit")
 
 
+def get_valid_name(prompt):
+    while True:
+        name = input(prompt).strip().lower()
+        if name:
+            return name
+        print("Name cannot be empty.")
+
+
+def phone_exists(phone):
+    for contact in contacts.values():
+        if contact["phone"] == phone:
+            return True
+    return False
+
+
 def add_contact():
-    name = input("Enter contact name: ").strip().lower()
-    if not name:
-        print("name cannot be empty")
-        return
+    name = get_valid_name("Enter contact name: ")
 
     if name in contacts:
         print("Contact already exists.")
         return
 
     phone = input("Enter phone number: ").strip()
+    if phone_exists(phone):
+        print("This phone number is already saved.")
+        return
+
     email = input("Enter email address: ").strip()
 
     contacts[name] = {
@@ -45,8 +65,8 @@ def add_contact():
         "email": email
     }
 
-    print("Contact added successfully.")
     save_contacts()
+    print("Contact added successfully.")
 
 
 def view_contacts():
@@ -74,6 +94,7 @@ def search_contact():
     else:
         print("Contact not found.")
 
+
 def update_contact():
     name = input("Enter contact name to update: ").strip().lower()
 
@@ -87,23 +108,28 @@ def update_contact():
     contacts[name]["phone"] = phone
     contacts[name]["email"] = email
 
-    print("Contact updated successfully.")
     save_contacts()
+    print("Contact updated successfully.")
+
 
 def delete_contact():
     name = input("Enter contact name to delete: ").strip().lower()
+
     if name not in contacts:
         print("Contact not found.")
         return
-    delete_confirmation = input("Are you sure you want to delete this contact? (y/n): ").strip().lower()
+
+    delete_confirmation = input(
+        "Are you sure you want to delete this contact? (y/n): "
+    ).strip().lower()
 
     if delete_confirmation != "y":
         print("Delete cancelled.")
         return
+
     del contacts[name]
     save_contacts()
     print("Contact deleted successfully.")
-
 
 
 def clear_everything():
@@ -111,7 +137,6 @@ def clear_everything():
     contacts = {}
     save_contacts()
     print("All contacts cleared.")
-
 
 
 while True:
