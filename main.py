@@ -84,15 +84,26 @@ def view_contacts():
 
 
 def search_contact():
-    name = input("Enter name to search: ").strip().lower()
+    query = input("Enter name to search: ").strip().lower()
 
-    if name in contacts:
-        info = contacts[name]
-        print(f"\nName : {name.title()}")
-        print(f"Phone: {info['phone']}")
-        print(f"Email: {info['email']}")
-    else:
-        print("Contact not found.")
+    if not query:
+        print("Search cannot be empty.")
+        return
+
+    found = False
+
+    for name, info in contacts.items():
+        if query in name:
+            if not found:
+                print("\nMatching Contacts:")
+            found = True
+            print(f"Name : {name.title()}")
+            print(f"Phone: {info['phone']}")
+            print(f"Email: {info['email']}")
+            print("-" * 20)
+
+    if not found:
+        print("No matching contacts found.")
 
 
 def update_contact():
